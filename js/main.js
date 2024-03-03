@@ -94,5 +94,16 @@ $(document).ready(function () {
           </tr>`;
       $(".table tbody").append(newRow);
     });
+    Toastify({
+      text: "Success",
+      className: "info",
+      style: {
+        background: "linear-gradient(to right, #00b09b, #96c93d)",
+      },
+      offset: {
+        x: 50, // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+        y: 10, // vertical axis - can be a number or a string indicating unity. eg: '2em'
+      },
+    }).showToast();
   });
 });
