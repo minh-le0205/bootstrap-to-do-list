@@ -12,7 +12,7 @@ $(document).ready(function () {
                     <button type='button' class='btn btn-success' id="edit-btn">
                         <i class='fa fa-edit'></i>
                     </button>
-                    <button type='button' class='btn btn-danger' id="delete-btn">
+                    <button type='button' class='btn btn-danger' id="delete-btn" data-task-id=${task.task_id}>
                         <i class='far fa-trash-alt'></i>
                     </button>
                 </td>
@@ -145,5 +145,36 @@ $(document).ready(function () {
 
     // Populate table with sorted data
     populateTable(taskInfo);
+  });
+
+  $("button#delete-btn").click(function (e) {
+    e.preventDefault();
+    // Get the corresponding data-task-id value
+    let taskId = $(this).data("task-id");
+
+    // Show Bootstrap modal for confirmation
+    $("#deleteModal").modal("toggle");
+
+    // Click event for delete confirmation
+    $("#confirmDelete").click(function () {
+      // Retrieve taskInfo from localStorage
+      let taskInfo = JSON.parse(localStorage.getItem("taskInfo")) || [];
+
+      // Find index of task with matching task_id
+      let index = taskInfo.findIndex((task) => task.task_id == taskId);
+
+      // If index is found, remove task from taskInfo array
+      if (index !== -1) {
+        taskInfo.splice(index, 1);
+        // Update localStorage with modified taskInfo
+        localStorage.setItem("taskInfo", JSON.stringify(taskInfo));
+      }
+
+      // Close the modal
+      $("#deleteModal").modal("hide");
+
+      // Reload the page
+      location.reload();
+    });
   });
 });
