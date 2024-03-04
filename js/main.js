@@ -106,4 +106,44 @@ $(document).ready(function () {
       },
     }).showToast();
   });
+
+  function populateTable(taskInfo) {
+    $(".table tbody").empty(); // Clear existing table rows
+    taskInfo.forEach(function (task, index) {
+      let newRow = `
+              <tr>
+                    <th class="text-center" scope='row'>${task.task_id}</th>
+                    <td class="text-center">${task.task_name}</td>
+                    <td class="${task.task_level_css} text-center">${task.task_level}</td>
+                    <td class="text-center">
+                        <button type='button' class='btn btn-success' id="edit-btn">
+                            <i class='fa fa-edit'></i>
+                        </button>
+                        <button type='button' class='btn btn-danger' id="delete-btn">
+                            <i class='far fa-trash-alt'></i>
+                        </button>
+                    </td>
+              </tr>`;
+      $(".table tbody").append(newRow); // Append new row to table
+    });
+  }
+
+  $("#sortSelect").change(function (e) {
+    e.preventDefault();
+    let selectedValue = $(this).val();
+
+    let taskInfo = JSON.parse(localStorage.getItem("taskInfo")) || [];
+
+    // Sort taskInfo based on selected sorting option
+    if (selectedValue === "id_desc") {
+      taskInfo.sort((a, b) => b.task_id - a.task_id); // Sort by task_id descending order
+    } else if (selectedValue === "id_asc") {
+      taskInfo.sort((a, b) => a.task_id - b.task_id); // Sort by task_id ascending order
+    } else if (selectedValue === "name") {
+      taskInfo.sort((a, b) => a.task_name.localeCompare(b.task_name)); // Sort by task_name alphabetical order
+    }
+
+    // Populate table with sorted data
+    populateTable(taskInfo);
+  });
 });

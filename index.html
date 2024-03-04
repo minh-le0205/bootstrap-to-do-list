@@ -40,20 +40,12 @@
 
         <div class="form-group col-4">
           <div class="input-group mb-3">
-            <div class="dropdown">
-              <button
-                class="btn btn-secondary dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton"
-                data-toggle="dropdown"
-              >
-                Sort By
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Id</a>
-                <a class="dropdown-item" href="#">Name</a>
-              </div>
-            </div>
+            <label for="#sortSelect">Sort By: </label>
+            <select class="form-control ml-2" id="sortSelect">
+              <option value="id_desc">ID DESC</option>
+              <option value="id_asc">ID ASC</option>
+              <option value="name">Name</option>
+            </select>
           </div>
         </div>
 
@@ -166,6 +158,6 @@
       crossorigin="anonymous"
     ></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <script src="./js//main.js"></script>
+    <script src="./js//main.js?v2"></script>
   </body>
 </html>
